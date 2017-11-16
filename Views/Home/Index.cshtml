@@ -1,0 +1,65 @@
+﻿@using webNews.Models1;
+@{
+    ViewBag.Title = "Home Page";
+}
+<div class="container">
+    <div class="col-md-4">
+        <form style="margin-top:50px; " action="@Url.Action("Add","Home")" method="post">
+            <div class="form-group">
+                <label>Title</label>
+                <input type="text" name="Title" class="form-control" />
+            </div>
+            <div class="form-group">
+                <label>Category</label>
+                <select name="CategoryId" class="form-control">
+                    @foreach (Categories item in ViewBag.category)
+                    {
+                        <option value="@item.Id">@item.Name</option>
+                    }
+                </select>
+            </div>
+            <div class="form-group">
+                <label>Date</label>
+                <input name="Date" type="date" class="form-control" />
+            </div>
+            <div class="form-group">
+                <label>Text</label>
+                <textarea class="form-control" name="Text"></textarea>
+            </div>
+            <button type="submit" class="btn btn-primary">Add News</button>
+        </form>
+    </div>
+    <div class="col-md-8">
+        <table class="table" style="margin-top:50px; ">
+            <thead class="thead-dark">
+                <tr>
+                    <th scope="col">Id</th>
+                    <th scope="col">Title</th>
+                    <th scope="col">Date</th>
+                    <th scope="col">Categories</th>
+                    <th scope="col">Text</th>
+                    <th scope="col" style="text-align:center;">Edit</th>
+                    <th scope="col" style="text-align:center;">Delete</th>
+                    
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (news item in ViewBag.news)
+                {
+                    <tr>
+                        <th scope="row">@item.Id</th>
+                        <td>@item.Title</td>
+                        <td>@item.Categories.Name</td>
+                        <td>@item.Date.Value.ToString("dd/MM/yyyy")</td>
+                        <td>@item.Text</td>
+                        <td style="text-align:center;"><a href="#"><i class="fa fa-pencil"></i>  </a>
+                        </td>
+                        <td style="text-align:center;"><a href="@Url.Action("Delete","Home", new {Id =item.Id })">  <i class="fa fa-trash" aria-hidden="true"></i></a></td>
+
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+
+</div>
